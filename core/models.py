@@ -14,7 +14,7 @@ class User(AbstractUser):
     email = models.EmailField(null=True, unique=True)
     phone = models.CharField(max_length=10, null=True, blank=True)
     gh_username = models.CharField(max_length=100, unique=True)
-    college = models.ForeignKey(College, on_delete=models.CASCADE)
+    college = models.CharField(max_length=50, null=True)
     year = models.CharField(max_length= 15, default="Year")
     dept = models.CharField(max_length=20, default="Department" )
     activated = models.BooleanField(default=False)
