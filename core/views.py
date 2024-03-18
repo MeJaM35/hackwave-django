@@ -4,6 +4,10 @@ from django.contrib.auth.hashers import make_password
 from django.contrib import messages
 from django.shortcuts import render, redirect
 from .models import User
+from django.contrib.auth import login, logout , authenticate
+from django.contrib.auth.decorators import login_required
+
+
 
 
 
@@ -38,6 +42,9 @@ def register_user(request):
                         activated=False  # Set to False by default
                     )
                     user.save()
+                    user = authenticate(request, email=email, password=password)
+                    login(request, user)
+                    return redirect(index)
                     # Redirect to login page after successful registration
                 else:
                     messages.error(request, 'Username is already in use.')
@@ -50,6 +57,15 @@ def register_user(request):
 
 
 def index(request):
-    return HttpResponse('Site setup')
+    return render(request, 'core/index.html')
+
+def dashboard(request):
+    return render(request, 'core/dashboard.html')
+
+@login_required
+def logoutUser(request):
+    logout(request)
+    return redirect('index')
+
 
 # Create your views here.
