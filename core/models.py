@@ -2,9 +2,6 @@ from django.db import models
 from django.contrib.auth.models import AbstractUser
 
 
-class College(models.Model):
-    name = models.CharField(max_length=50, null=True)
-    code = models.IntegerField(null=False, unique=True, primary_key=True)
 
 
 class User(AbstractUser):
@@ -32,6 +29,7 @@ DOMAINS = (
 
 )
 class Team(models.Model):
+    team_id = models.BigAutoField(primary_key=True)
     name = models.CharField(max_length=500, null=True)
     lead = models.ForeignKey(User, on_delete=models.CASCADE, related_name='lead')
     mem2 = models.ForeignKey(User, on_delete=models.CASCADE, related_name='mem2', null=True)
