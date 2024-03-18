@@ -13,7 +13,7 @@ class User(AbstractUser):
     last_name = models.CharField(max_length=80)
     email = models.EmailField(null=True, unique=True)
     phone = models.CharField(max_length=10, null=True, blank=True)
-    ghlink = models.URLField()
+    gh_username = models.CharField(max_length=100, unique=True)
     college = models.ForeignKey(College, on_delete=models.CASCADE)
     year = models.CharField(max_length= 15, default="Year")
     dept = models.CharField(max_length=20, default="Department" )
@@ -38,5 +38,6 @@ class Team(models.Model):
     mem3 = models.ForeignKey(User, on_delete=models.CASCADE, blank=True, null=True, related_name='mem3')
     mem3 = models.ForeignKey(User, on_delete=models.CASCADE, blank=True, null=True, related_name='mem4')
     domain = models.CharField(max_length=500, choices = DOMAINS)
+    slug = models.SlugField(default="", null=False)
 
 # Create your models here.
